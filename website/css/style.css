@@ -1,0 +1,26 @@
+@keyframes changeColor{
+    0% {color:blue;}
+    25%{color:green;}
+    50%{color:red;}
+    75%{color:gold;}
+    100%{color:blue;}
+}
+h1{
+    background-color:white;
+    text-align:center;
+    animation: changeColor 6s infinite;
+}
+.cardCustom{
+    width:50%;
+    display:block;
+    margin:auto;
+    margin-top:20px;
+}
+.customBtn{
+    margin-top:10px;
+}
+#appearingImg{
+    width:30%;
+    display:block;
+    margin:auto;
+}

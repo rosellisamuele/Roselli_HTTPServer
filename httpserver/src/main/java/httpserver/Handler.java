@@ -8,7 +8,6 @@ import java.net.Socket;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.Scanner;
 
 public class Handler {
 
@@ -24,25 +23,27 @@ public class Handler {
         System.out.println(request);
 
         if (request != null && request.startsWith("GET")) {
-            String fileRequested = request.split(" ")[1];
             try {
 
-                System.out.println(fileRequested);
 
                 String uri = request.split(" ")[1];
                 System.out.println(uri);
 
-                switch (fileRequested) {
+                switch (uri) {
                     case "/":
-                        respond("text/html", "indovinaNumero/index.html");
+                        respond("text/html", "website/index.html");
+                        break;
+
+                    case "/?":
+                        respond("text/html", "website/index.html");
                         break;
 
                     case "/style.css":
-                        respond("text/css", "indovinaNumero/css/style.css");
+                        respond("text/css", "website/css/style.css");
                         break;
 
                     case "/script.js":
-                        respond("application/javascript", "indovinaNumero/js/script.js");
+                        respond("application/javascript", "website/js/script.js");
                         break;
 
                     default:
