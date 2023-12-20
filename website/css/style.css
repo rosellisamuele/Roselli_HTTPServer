@@ -20,7 +20,20 @@ h1{
     margin-top:10px;
 }
 #appearingImg{
-    width:30%;
+    width:50%;
     display:block;
     margin:auto;
+    margin-top: 100px;
+    border: 2px solid white;
+}
+#errorPageBody{
+    background-color: black;
+    color:white;
+}
+.error{
+    font-size: 100px;
+    text-align: center;
+    color: white;
+    margin:auto;
+
 }

@@ -3,6 +3,8 @@ var contaTentativi=1;
 var X;
 var bgStyle;
 var status;
+
+
 /*Nel caso si tratti del primo tentativo, randomizzo
 direttamente senza chiedere all'utente*/
 if(contaTentativi===1) randN();
@@ -11,6 +13,12 @@ function randN(){
     X = parseInt(Math.random()*100);
     console.log("Numero generato");
     
+    let bestAttemptUser = document.getElementById("bestAttemptUser");
+    let bestAttemptPoints = document.getElementById("bestAttemptPoints");
+
+    bestAttemptPoints.innerHTML = data[0].points;
+
+
     document.getElementById("status").innerHTML= "Nuovo numero generato";
     bgStyle="white";
     document.getElementById("bd").style.backgroundColor = bgStyle;
@@ -40,6 +48,11 @@ function compXY(){
         bgStyle="green";
         console.log("Complimenti! Hai indovinato il numero in "+contaTentativi+" tentativi!");
         status = "Complimenti! Hai indovinato il numero ("+X+") in "+contaTentativi+" tentativi!";
+
+        
+
+        let appearingImg = document.getElementById("appearingImg");
+        appearingImg.removeAttribute("hidden");
     }
     
     document.body.style.backgroundColor = bgStyle;

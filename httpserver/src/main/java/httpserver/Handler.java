@@ -5,9 +5,11 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 
 public class Handler {
 
@@ -46,7 +48,20 @@ public class Handler {
                         respond("application/javascript", "website/js/script.js");
                         break;
 
+                    case "/website/images/winner.gif":
+                        respond("images/gif", "website/images/winner.gif");
+                        break;
+
+                    case "/error":
+                        respond("text/html", "website/pages/error.html");
+                        break;
+
+                    case "/data.json":
+                        respond("application/json", "website/json/data.json");
+                        break;
+
                     default:
+                        respond("text/html", "website/pages/error.html");
                         break;
                 }
 
@@ -60,35 +75,20 @@ public class Handler {
 
     }
 
-    public String readFile(File htmlFile) throws IOException {
 
-        BufferedReader reader = new BufferedReader(new FileReader(htmlFile));
-        StringBuilder stringBuilder = new StringBuilder();
-        String line = null;
-        String ls = System.getProperty("line.separator");
-        while ((line = reader.readLine()) != null) {
-            stringBuilder.append(line);
-            stringBuilder.append(ls);
-        }
-        // delete the last new line separator
-        stringBuilder.deleteCharAt(stringBuilder.length() - 1);
-        reader.close();
+    public void respond(String contentType, String location) throws FileNotFoundException, IOException {
 
-        String content = stringBuilder.toString();
-        return content;
-    }
-
-    public void respond(String contentType, String filePath) throws FileNotFoundException, IOException {
-
-        File htmlFile = new File(filePath);
-        String file = readFile(htmlFile);
+        File htmlFile = new File(location);
+        //String file = readFile(htmlFile);
+        Path path = Paths.get(location);
+        Files.readAllBytes(path);
 
         outputStream.writeBytes("HTTP/1.1 200 OK\r\n");
         outputStream.writeBytes("Content-Type: " + contentType + "\r\n");
 
-        outputStream.writeBytes("Content-Length: " + file.getBytes().length + "\r\n");
+        outputStream.writeBytes("Content-Length: " + Files.readAllBytes(path).length + "\r\n");
         outputStream.writeBytes("\r\n");
-        outputStream.writeBytes(file);
+        outputStream.write(Files.readAllBytes(path));
         outputStream.flush();
     }
 
